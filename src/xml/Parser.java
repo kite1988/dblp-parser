@@ -1,8 +1,7 @@
 /*
- * @author: Tao Chen (chentaokite AT gmail dot com）
  * This is the program that parses dblp xml using sax.
  * 
- * Note: only <inrpoceedings> and its children are the interested element, and 
+ * Note: only <inproceedings> and its children are the interested elements, and 
  * other elements will be ignored.
  * 
  * Authors, conference, papers, and the citations will be extracted and 
@@ -21,6 +20,7 @@
  *     http://dblp.uni-trier.de/xml/dblp.dtd
  *  
  *  If you have any questions, feel free to drop me an email.
+ *  Tao Chen (chentaokite AT gmail dot com)
  *  
  */
 
@@ -202,16 +202,16 @@ public class Parser {
 		try {
 			conn = DBConnection.getConn();
 			stmt_inproc = conn
-					.prepareStatement("insert into paper(title,year,conference,key) values(?,?,?,?)");
+					.prepareStatement("insert into paper(title,year,conference,paper_key) values (?,?,?,?)");
 
 			stmt_author = conn
-					.prepareStatement("insert into author(name,paper_key) values(?,?)");
+					.prepareStatement("insert into author(name,paper_key) values (?,?)");
 
 			stmt_cite = conn
-					.prepareStatement("insert into citation(paper_cite_key,paper_cited_key) values(?,?)");
+					.prepareStatement("insert into citation(paper_cite_key,paper_cited_key) values (?,?)");
 
 			stmt_conf = conn
-					.prepareStatement("insert into conference(key,name,detail) values(?,?,?)");
+					.prepareStatement("insert into conference(conf_key,name,detail) values (?,?,?)");
 
 			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
 			SAXParser parser = parserFactory.newSAXParser();
