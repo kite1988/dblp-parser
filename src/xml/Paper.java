@@ -18,6 +18,10 @@ public class Paper {
 	public static final int CITE = 5;
 	public static final int CONFERENCE = 6;
 
+	public String toString(){
+		return "title: " + title + " authors: " + authors.toString() +
+				" conference: " + conference + " year: " + year;
+	}
 	public static int getElement(String name) {
 		if (name.equals("inproceedings")) {
 			return INPROCEEDING;

@@ -1,11 +1,12 @@
 /*
- * This is the program that parses dblp xml using sax.
+ * This program aims to parse dblp.xml using sax and store the data into mysql database.
  * 
- * Note: only <inproceedings> and its children are the interested elements, and 
+ * Note: 
+ * 1. Only <inproceedings> and its children are the interested elements, and 
  * other elements will be ignored.
  * 
- * Authors, conference, papers, and the citations will be extracted and 
- * stored to the database. See dblp.sql for the database schema.
+ * 2. Authors, conference, papers, and the citations under <inproceedings> 
+ * will be extracted and stored to the database. See dblp.sql for the database schema.
  * 
  * 
  * To know more about the xml structure of dblp, you may read:
@@ -44,6 +45,7 @@ public class Parser {
 	private Conference conf;
 	int line = 0;
 	PreparedStatement stmt_inproc, stmt_conf, stmt_author, stmt_cite;
+	int errors = 0;
 
 	private class ConfigHandler extends DefaultHandler {
 		public void startElement(String namespaceURI, String localName,
@@ -106,6 +108,7 @@ public class Parser {
 		public String parseTitle(String title) {
 			return title.replaceAll(
 					"<sub>|</sub>|<sup>|</sup>|<i>|</i>|<tt>|</tt>", " ");
+		
 		}
 
 		public void endElement(String namespaceURI, String localName,
@@ -115,7 +118,9 @@ public class Parser {
 				try {
 					if (paper.title.equals("") || paper.conference.equals("")
 							|| paper.year == 0) {
-						System.exit(0);
+						System.out.println("Error in parsing " + paper);
+						errors++;
+						return;
 					}
 					stmt_inproc.setString(1, paper.title);
 					stmt_inproc.setInt(2, paper.year);
@@ -123,20 +128,17 @@ public class Parser {
 					stmt_inproc.setString(4, paper.key);
 					stmt_inproc.addBatch();
 
-					for (int i = 0; i < paper.authors.size(); i++) {
-						stmt_author.setString(1, paper.authors.get(i)
-								.toString());
+					for (String author: paper.authors) {
+						stmt_author.setString(1, author); 
 						stmt_author.setString(2, paper.key);
 						stmt_author.addBatch();
 					}
-
-					for (int i = 0; i < paper.citations.size(); i++) {
-						stmt_cite.setString(1, paper.key);
-						stmt_cite.setString(2, paper.citations.get(i));
-
-						if (paper.citations.get(i).equals("..."))
-							continue;
-						stmt_cite.addBatch();
+					for (String cited: paper.citations) {
+						if (!cited.equals("...")) {
+							stmt_cite.setString(1, paper.key);
+							stmt_cite.setString(2, cited);
+							stmt_cite.addBatch();
+						}
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -164,12 +166,14 @@ public class Parser {
 				}
 			}
 
-			if (line % 1000 == 0) {
+			if (line % 10000 == 0) {
 				try {
 					stmt_inproc.executeBatch();
 					stmt_conf.executeBatch();
 					stmt_author.executeBatch();
 					stmt_cite.executeBatch();
+					conn.commit();
+					// System.out.println("Processing " + line);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -201,6 +205,7 @@ public class Parser {
 	Parser(String uri) throws SQLException {
 		try {
 			conn = DBConnection.getConn();
+			conn.setAutoCommit(false);
 			stmt_inproc = conn
 					.prepareStatement("insert into paper(title,year,conference,paper_key) values (?,?,?,?)");
 
@@ -219,7 +224,19 @@ public class Parser {
 			parser.getXMLReader().setFeature(
 					"http://xml.org/sax/features/validation", true);
 			parser.parse(new File(uri), handler);
+			
+			try {
+				stmt_inproc.executeBatch();
+				stmt_conf.executeBatch();
+				stmt_author.executeBatch();
+				stmt_cite.executeBatch();
+				conn.commit();
+				System.out.println("Processing " + line);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			conn.close();
+			System.out.println("num of errors: " + errors);
 		} catch (IOException e) {
 			System.out.println("Error reading URI: " + e.getMessage());
 		} catch (SAXException e) {
