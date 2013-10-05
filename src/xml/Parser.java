@@ -20,7 +20,11 @@
  *  3. DBLP XML DTD
  *     http://dblp.uni-trier.de/xml/dblp.dtd
  *  
- *  If you have any questions, feel free to drop me an email.
+ *  This code was first written by me in early 2010 for my undergraduate thesis, and then
+ *  was slightly modified in September 2013. I will keep this project updated, and make it
+ *  a better one.
+ *  
+ *  If you have any questions/comments, feel free to drop me an email.
  *  Tao Chen (chentaokite AT gmail dot com)
  *  
  */
