@@ -2,7 +2,7 @@
 
 
 2. Restore the database with mysql dump file (dblp.sql)
-Supose you have already installed mysql database. 
+Suppose you have already installed mysql database. 
 You may first log to your mysql and then use "source" command to restore the database:
 mysql>> source path_of_dblp.sql
 
@@ -16,7 +16,7 @@ Please change the settings (i.g., dbUrl, user, password) in db/DBConnection.java
 
 4. Run the parser
 a. Using IDE, for example, Eclipse.
-You need to add mysql-connector-java-6.0-bin.jar to tshe build path. 
+You need to add mysql-connector-java-6.0-bin.jar to the build path. 
 See this post if you need any help.
 http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java)
 
@@ -26,6 +26,6 @@ arguments in Eclipse.
 http://www.cs.colostate.edu/helpdocs/eclipseCommLineArgs.html
 
 b. Using the command line
-Similarity, you need to add mysql-connector-java-6.0-bin.jar in the classpath, and setting
+Similarly, you need to add mysql-connector-java-6.0-bin.jar in the classpath, and set
 the arguments. The command will be something like:
 java -cp mysql-connector-java-6.0-bin.jar -Xmx1G -DentityExpansionLimit=2500000 Parser [path_of_dblp.xml]
