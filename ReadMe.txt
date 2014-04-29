@@ -30,3 +30,5 @@ b. Using the command line
 Similarly, you need to add mysql-connector-java-6.0-bin.jar in the classpath, and set
 the arguments. The command will be something like:
 java -cp mysql-connector-java-6.0-bin.jar -Xmx1G -DentityExpansionLimit=2500000 Parser [path_of_dblp.xml]
+
+The program will run for a while. For example, it takes 974 seconds to parse dblp-2014.xml using my desktop. 
