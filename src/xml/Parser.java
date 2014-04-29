@@ -35,6 +35,7 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 import javax.xml.parsers.*;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
@@ -91,7 +92,7 @@ public class Parser {
 				} else if (curElement == Paper.CONFERENCE) {
 					paper.conference = str;
 				} else if (curElement == Paper.TITLE) {
-					paper.title = str;
+					paper.title += str;
 				} else if (curElement == Paper.YEAR) {
 					paper.year = Integer.parseInt(str);
 				}
@@ -103,16 +104,6 @@ public class Parser {
 					conf.detail = str;
 				}
 			}
-		}
-
-		/*
-		 * Special handle for child elements <sub>, <sup>, <i> and <tt> in
-		 * title. For simplicity, just replace them with a whitespace.
-		 */
-		public String parseTitle(String title) {
-			return title.replaceAll(
-					"<sub>|</sub>|<sup>|</sup>|<i>|</i>|<tt>|</tt>", " ");
-		
 		}
 
 		public void endElement(String namespaceURI, String localName,
@@ -177,9 +168,9 @@ public class Parser {
 					stmt_author.executeBatch();
 					stmt_cite.executeBatch();
 					conn.commit();
-					// System.out.println("Processing " + line);
+					//System.out.println("Processing " + line);
 				} catch (SQLException e) {
-					e.printStackTrace();
+					System.err.println(e.getMessage());
 				}
 			}
 		}
@@ -208,6 +199,7 @@ public class Parser {
 
 	Parser(String uri) throws SQLException {
 		try {
+			System.out.println("Parsing...");
 			conn = DBConnection.getConn();
 			conn.setAutoCommit(false);
 			stmt_inproc = conn
@@ -235,7 +227,7 @@ public class Parser {
 				stmt_author.executeBatch();
 				stmt_cite.executeBatch();
 				conn.commit();
-				System.out.println("Processing " + line);
+				System.out.println("Processed " + line);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -20,14 +20,14 @@ public class Paper {
 
 	public String toString(){
 		return "title: " + title + " authors: " + authors.toString() +
-				" conference: " + conference + " year: " + year;
+				" conference: " + conference + " year: " + year + " key: " + key;
 	}
 	public static int getElement(String name) {
 		if (name.equals("inproceedings")) {
 			return INPROCEEDING;
 		} else if (name.equals("author")) {
 			return AUTHOR;
-		} else if (name.equals("title")) {
+		} else if (name.equals("title") || name.equals("sub") || name.equals("sup") || name.equals("i")||name.equals("tt")) {
 			return TITLE;
 		} else if (name.equals("year")) {
 			return YEAR;
