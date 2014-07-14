@@ -51,7 +51,8 @@ public class Parser {
 	int line = 0;
 	PreparedStatement stmt_inproc, stmt_conf, stmt_author, stmt_cite;
 	int errors = 0;
-
+	StringBuffer author;
+	
 	private class ConfigHandler extends DefaultHandler {
 		public void startElement(String namespaceURI, String localName,
 				String rawName, Attributes atts) throws SAXException {
@@ -65,6 +66,8 @@ public class Parser {
 				curElement = Conference.PROCEEDING;
 				conf = new Conference();
 				conf.key = atts.getValue("key");
+			} else if (rawName.equals("author") && ancestor == Element.INPROCEEDING) {
+				author = new StringBuffer();
 			}
 
 			if (ancestor == Element.INPROCEEDING) {
@@ -86,7 +89,7 @@ public class Parser {
 			if (ancestor == Element.INPROCEEDING) {
 				String str = new String(ch, start, length).trim();
 				if (curElement == Paper.AUTHOR) {
-					paper.authors.add(str);
+					author.append(str);
 				} else if (curElement == Paper.CITE) {
 					paper.citations.add(str);
 				} else if (curElement == Paper.CONFERENCE) {
@@ -108,6 +111,10 @@ public class Parser {
 
 		public void endElement(String namespaceURI, String localName,
 				String rawName) throws SAXException {
+			if (rawName.equals("author") && ancestor == Element.INPROCEEDING) {
+				paper.authors.add(author.toString().trim());
+			}
+			
 			if (Element.getElement(rawName) == Element.INPROCEEDING) {
 				ancestor = -1;
 				try {
