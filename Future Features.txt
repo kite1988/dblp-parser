@@ -1,0 +1,13 @@
+Next major release:  
+
+1. Parse journals, books and theses as well. 
+
+<article key="journals/ac/Wexelblat75">
+<author>Richard L. Wexelblat</author>
+<title>Programmed Control of Asynchronous Program Interrupts.</title>
+<pages>1-41</pages>
+<year>1975</year>
+<volume>13</volume>
+<journal>Advances in Computers</journal>
+<url>db/journals/ac/ac13.html#Wexelblat75</url>
+</article>
