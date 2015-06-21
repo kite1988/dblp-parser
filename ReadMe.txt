@@ -1,6 +1,6 @@
 
 # What does this tool doing? 
-This is a tool to parse dblp.xml (http://dblp.uni-trier.de/xml/) file and stores inproceedings into database.
+This is a tool to parse dblp.xml (http://dblp.uni-trier.de/xml/) and store inproceedings into database.
 
 Authors, conference, papers, and the citations under inproceedings will be extracted and stored in database as four tables. See dblp.sql for the database schema.
 
