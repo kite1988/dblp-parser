@@ -4,7 +4,7 @@ This is a tool to parse dblp.xml (http://dblp.uni-trier.de/xml/) and store inpro
 
 To be specific, four key information, namely **author**, **conference**, **paper**, and **citation** under **\<inproceedings\>** will be extracted and stored in MySQL database as four tables. Please see [dblp.sql](https://github.com/kite1988/dblp-parser/blob/master/dblp.sql) for the database schema.
 
-The initial code was written by me in early 2010 for my undergraduate thesis. With some modifications, I released the code in [Google Code](https://code.google.com/archive/p/dblp-parser) on September 2013, and later migrated it to GitHub. I am still actively maintaining the code, e.g., fixing bugs as well as trying to implement new features. Therefore, welcome to contact me for any questions/suggestion/bug reports!
+The initial code was written by me in early 2010 for my undergraduate thesis. With some modifications, I released the code in [Google Code](https://code.google.com/archive/p/dblp-parser) on September 2013, and later migrated it to GitHub. I am still actively maintaining the code, e.g., fixing bugs as well as trying to implement new features. Therefore, **please do contact me if you any questions or suggestions.** Thanks!
 
 
 ## How to use
