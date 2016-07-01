@@ -1,16 +1,13 @@
 
-# What is this tool used for? 
+# DBLP XML Parser
 This is a tool to parse dblp.xml (http://dblp.uni-trier.de/xml/) and store inproceedings into MySQL database.
 
 To be specific, four key information, namely **author**, **conference**, **paper**, and **citation** under **\<inproceedings\>** will be extracted and stored in MySQL database as four tables. Please see [dblp.sql](https://github.com/kite1988/dblp-parser/blob/master/dblp.sql) for the database schema.
 
 The initial code was written by me in early 2010 for my undergraduate thesis. With some modifications, I released the code in [Google Code](https://code.google.com/archive/p/dblp-parser) on September 2013, and later migrated it to GitHub. I am still actively maintaining the code, e.g., fixing bugs as well as trying to implement new features. Therefore, welcome to contact me for any questions/suggestion/bug reports!
 
-# Testing [Updated: Jul 1, 2016]
-  The code has been tested with four versions of dblp.xml, namely dblp-2002, dblp-2013, dblp-2014, dblp-2015 under JDK 1.7. It should also work well with JDK 1.5 and JDK 1.6. 
-  
-  
-# How to use
+
+## How to use
 1. Download dblp.xml and dblp.dtd from http://dblp.uni-trier.de/xml/, and save them at the same folder.
 
 
@@ -64,7 +61,11 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
 
   Please specify another JVM argument -DentityExpansionLimit=2500000
 
-# More
+## Testing [Updated: Jul 1, 2016]
+  The code has been tested with four versions of dblp.xml, namely dblp-2002, dblp-2013, dblp-2014, dblp-2015 under JDK 1.7. It should also work well with JDK 1.5 and JDK 1.6.
+  
+  
+## More
   To know more about the xml structure of dblp, you may read:
 
 - My previous article posted in CSDN blog (in Chinese)
