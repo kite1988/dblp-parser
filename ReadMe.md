@@ -68,7 +68,7 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
 
   Cause: MySQL's utf8 permits only the Unicode characters that can be represented with 3 bytes in UTF-8. However, some titles have characters that needs 4 bytes.
 
-  Solution: Use utf8mb4 (supported by MySQL 5.5 and later) instead of utf8 for dblp tables. I have fixed this in the code.
+  Solution: Use utf8mb4 (supported by MySQL 5.5 and later) instead of utf8 for dblp tables. I have fixed this in dblp.sql.
  
 ## Testing [Updated: Nov 29, 2016]
   The code has been tested with four versions of dblp.xml, namely dblp-2002, dblp-2013, dblp-2014, dblp-2015, dblp-2016 (released on 2016-11-29) under JDK 1.8. It should also work well with older JDK (e.g., 1.7)
