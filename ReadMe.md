@@ -13,7 +13,7 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
 
 2. Restore the database with MySQL dump file (dblp.sql)
 
-  Suppose you have already installed MySQL database. 
+  Suppose you have already installed MySQL database (5.5 or later). 
   You may first log to your MySQL and then use "source" command to restore the database:
   ```
   mysql>> source path_of_dblp.sql
