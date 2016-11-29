@@ -4,7 +4,9 @@ import java.sql.*;
 
 public class DBConnection {
 	// Change the parameters accordingly.
-	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306/dblp?useUnicode=true&characterEncoding=utf-8";
+	//private static String dbUrl = "jdbc:mysql://127.0.0.1:3306/dblp?useUnicode=true&characterEncoding=utf-8";
+	private static String dbUrl = "jdbc:mysql://127.0.0.1:3306/dblp";
+
 	private static String user = "root";
 	private static String password = "123456";
 

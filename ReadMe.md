@@ -8,7 +8,7 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
 
 
 ## How to use
-1. Download dblp.xml and dblp.dtd from http://dblp.uni-trier.de/xml/, and save them at the same folder.
+1. Download **dblp.xml** and **dblp.dtd** from http://dblp.uni-trier.de/xml/, and save them at the same folder.
 
 
 2. Restore the database with MySQL dump file (dblp.sql)
@@ -45,10 +45,12 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
 
     Similarly, you need to add mysql-connector-java-6.0-bin.jar to the classpath, and set program and VM arguments. The command will be something like:
     ```
-    java -cp mysql-connector-java-6.0-bin.jar -Xmx1G -DentityExpansionLimit=2500000 Parser [path_of_dblp.xml]
+    mkdir bin
+    javac -cp lib/mysql-connector-java-6.0-bin.jar -d bin src/db/DBConnection.java src/xml/* 
+    java -cp lib/mysql-connector-java-6.0-bin.jar:bin -DentityExpansionLimit=2500000 xml.Parser [path_of_dblp.xml]
     ```
 
-**All done!** The program will run for a while. On my old desktop, it takes 974 seconds to parse dblp-2014.xml.
+**All done!** The program will run for a while. It takes 885 seconds to parse dblp-2016.xml on my latptop.
 
 ### Known issues
 * Out of memory error
@@ -60,10 +62,17 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
   > The parser has encountered more than "64,000" entity expansions in this document; this is the limit imposed by the application
 
   Please specify another JVM argument -DentityExpansionLimit=2500000
-
-## Testing [Updated: Jul 1, 2016]
-  The code has been tested with four versions of dblp.xml, namely dblp-2002, dblp-2013, dblp-2014, dblp-2015 under JDK 1.7. It should also work well with JDK 1.5 and JDK 1.6.
   
+* Encoding error in inserting title to MySQL
+  > Incorrect string value: '\xF0\x9D\x94\xB94i...' for column 'title' at row 1
+
+  Cause: MySQL's utf8 permits only the Unicode characters that can be represented with 3 bytes in UTF-8. However, some titles have characters that needs 4 bytes.
+
+  Solution: Use utf8mb4 (supported by MySQL 5.5 and later) instead of utf8 for dblp tables. I have fixed this in the code.
+ 
+## Testing [Updated: Nov 29, 2016]
+  The code has been tested with four versions of dblp.xml, namely dblp-2002, dblp-2013, dblp-2014, dblp-2015, dblp-2016 (released on 2016-11-29) under JDK 1.8. It should also work well with older JDK (e.g., 1.7)
+  
   
 ## More
   To know more about the xml structure of dblp, you may read:

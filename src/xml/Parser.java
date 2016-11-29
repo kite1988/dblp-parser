@@ -175,7 +175,7 @@ public class Parser {
 					stmt_author.executeBatch();
 					stmt_cite.executeBatch();
 					conn.commit();
-					//System.out.println("Processing " + line);
+					// System.out.println("Processing " + line);
 				} catch (SQLException e) {
 					System.err.println(e.getMessage());
 				}
