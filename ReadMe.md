@@ -44,11 +44,11 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
   * Using command line
 
     Similarly, you need to add mysql-connector-java-6.0-bin.jar to the classpath, and set program and VM arguments. The command will be something like:
-    ```
+   ```
     mkdir bin
     javac -cp lib/mysql-connector-java-6.0-bin.jar -d bin src/db/DBConnection.java src/xml/* 
     java -cp lib/mysql-connector-java-6.0-bin.jar:bin -DentityExpansionLimit=2500000 xml.Parser [path_of_dblp.xml]
-    ```
+   ```
 
 **All done!** The program will run for a while. It takes 885 seconds to parse dblp-2016.xml on my latptop.
 
