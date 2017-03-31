@@ -24,7 +24,7 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
 
 3. Configure database connection
 
-  Please change dbUrl, user, password in [db/DBConnection.java] (https://github.com/kite1988/dblp-parser/blob/master/src/db/DBConnection.java) according to your own database setting.
+  Please change dbUrl, user, password in [db/DBConnection.java](https://github.com/kite1988/dblp-parser/blob/master/src/db/DBConnection.java) according to your own database setting.
 
 
 4. Run the parser
@@ -32,13 +32,13 @@ The initial code was written by me in early 2010 for my undergraduate thesis. Wi
   * Using Eclipse
 
     You need to add mysql-connector-java-6.0-bin.jar to project build path. 
-    See this [post] (http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java)) on how to do this.
+    See this [post](http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java)) on how to do this.
 
     And then run Parser.java with 
     * program argument: the path of dblp.xml
     * VM arguemnts: -Xmx1G -DentityExpansionLimit=2500000
 
-    See this [post] (http://www.cs.colostate.edu/helpdocs/eclipseCommLineArgs.html) if you are not sure how to specify arguments in Eclipse.
+    See this [post](http://www.cs.colostate.edu/helpdocs/eclipseCommLineArgs.html) if you are not sure how to specify arguments in Eclipse.
 
 
   * Using command line
